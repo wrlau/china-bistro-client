@@ -1,3 +1,14 @@
 .App {
   text-align: center;
 }
+
+.side-bar {
+  background-color: crimson;
+  color: white;
+
+}
+
+.order-form {
+  background-color: salmon;
+  color: white;
+}

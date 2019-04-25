@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import OrderForm from './containers/OrderForm';
 import Dishes from './components/Dishes';
 import DishService from './services/DishService';
 import './App.css';
@@ -25,7 +26,7 @@ class App extends Component {
           <p>nav bar</p>
         </div>
         <div className="order-form">
-          <p>order form</p>
+          <OrderForm />
         </div>
         <div className="side-bar">
           <Dishes dishes={this.state.dishes}/>
