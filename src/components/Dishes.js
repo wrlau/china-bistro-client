@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Dishes = ({ dishes }) => {
   const renderDishes = dishes.map(dish =>
@@ -7,6 +7,7 @@ const Dishes = ({ dishes }) => {
 
   return (
     <div>
+      <h2>Menu</h2>
       {renderDishes}
     </div>
   )

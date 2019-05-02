@@ -5,7 +5,7 @@ class OrderForm extends Component {
   render() {
     return(
       <div>
-        <p>hello!</p>
+        <h2>Items in Cart</h2>
       </div>
     )
   }
