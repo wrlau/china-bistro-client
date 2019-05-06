@@ -14,7 +14,8 @@ class App extends Component {
     super();
 
     this.state = {
-      dishes: []
+      dishes: [],
+      cart: []
     }
   }
 
@@ -24,6 +25,10 @@ class App extends Component {
 
   handleClick = (dish) => {
     console.log(dish);
+    console.log(this.state);
+    this.setState({
+        cart: this.state.cart.concat(dish)
+      });
   }
 
   render() {
@@ -34,8 +39,8 @@ class App extends Component {
             <Header />
             <Navbar />
             <Route exact path="/" component={Home} />
-            <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} handleClick={this.handleClick} /> } />
-            <Route exact path="/order/new" component={OrderForm} />
+            <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} handleClick={this.handleClick.bind(this)} /> } />
+            <Route exact path="/order/new" render={() => <OrderForm cart={this.state.cart} /> }  />
           </div>
         </>
       </Router>
