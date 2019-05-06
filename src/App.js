@@ -22,18 +22,22 @@ class App extends Component {
     DishService.fetchDishes().then(dishes => this.setState({ dishes }))
   }
 
+  handleClick = (dish) => {
+    console.log(dish);
+  }
+
   render() {
     return (
       <Router>
-        <React.Fragment>
+        <>
           <div className="App">
             <Header />
             <Navbar />
             <Route exact path="/" component={Home} />
-            <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} /> } />
+            <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} handleClick={this.handleClick} /> } />
             <Route exact path="/order/new" component={OrderForm} />
           </div>
-        </React.Fragment>
+        </>
       </Router>
     );
   }
