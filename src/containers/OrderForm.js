@@ -4,7 +4,6 @@ const OrderForm = ({ cart }) => {
   const renderCart = cart.map(cartItem =>
     <>
       <p key={cartItem.id}>{cartItem.name} - {cartItem.price}</p>
-      {/*<button key={cartItem.id} type="submit">Add to Cart</button>*/}
     </>
   )
 
@@ -12,6 +11,9 @@ const OrderForm = ({ cart }) => {
       <div>
         <h2>Items in Cart</h2>
         {renderCart}
+        {cart.length > 0 &&
+          <button>Checkout</button>
+        }
       </div>
     )
   }
