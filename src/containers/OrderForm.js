@@ -1,9 +1,10 @@
 import React from 'react';
 
-const OrderForm = ({ cart }) => {
+const OrderForm = ({ cart, removeCartItem }) => {
   const renderCart = cart.map(cartItem =>
     <>
       <p key={cartItem.id}>{cartItem.name} - {cartItem.price}</p>
+      <button type="submit" onClick={() => removeCartItem(cartItem.id)}>Remove Dish</button>
     </>
   )
 
@@ -11,9 +12,10 @@ const OrderForm = ({ cart }) => {
       <div>
         <h2>Items in Cart</h2>
         {renderCart}
-        {cart.length > 0 &&
-          <button>Checkout</button>
-        }
+        <div>
+        <p></p>
+        {cart.length > 0 && <button>Checkout</button>}
+        </div>
       </div>
     )
   }

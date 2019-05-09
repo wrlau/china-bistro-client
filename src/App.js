@@ -31,6 +31,12 @@ class App extends Component {
       });
   }
 
+  removeCartItem = (id) => {
+    const cart = [...this.state.cart];
+    const updatedCart = cart.filter(cartItem => cartItem.id !== id);
+    this.setState({ cart: updatedCart })
+  }
+
   render() {
     return (
       <Router>
@@ -40,7 +46,7 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Home} />
             <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} handleClick={this.handleClick.bind(this)} /> } />
-            <Route exact path="/order/new" render={() => <OrderForm cart={this.state.cart} /> }  />
+            <Route exact path="/order/new" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} /> }  />
           </div>
         </>
       </Router>

@@ -5,7 +5,7 @@ const Dishes = ({ dishes, handleClick }) => {
   const renderDishes = dishes.map(dish =>
     <>
       <p key={dish.id}>{dish.name} - {dish.price}</p>
-      <button key={dish.id} type="submit" onClick={() => handleClick(dish)}>Add to Cart</button>
+      <button type="submit" onClick={() => handleClick(dish)}>Add to Cart</button>
     </>
   )
 
