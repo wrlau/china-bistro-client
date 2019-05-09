@@ -20,12 +20,54 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.loadStateWithLocalStorage();
+
     DishService.fetchDishes().then(dishes => this.setState({ dishes }))
+
+    // add event listener to save state to localStorage
+    // when user leaves/refreshes the page
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+    // saves if component has a chance to unmount
+    this.saveStateToLocalStorage();
+  }
+
+  saveStateToLocalStorage() {
+    for (let key in this.state) {
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    }
+  }
+
+  loadStateWithLocalStorage() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
+
+        // parse the localStorage string into a JS object and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
   }
 
   handleClick = (dish) => {
-    console.log(dish);
-    console.log(this.state);
     this.setState({
         cart: this.state.cart.concat(dish)
       });
