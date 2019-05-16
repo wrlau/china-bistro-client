@@ -15,7 +15,9 @@ class App extends Component {
 
     this.state = {
       dishes: [],
-      cart: []
+      cart: [],
+      showOrderConfirm: false,
+      orderTotal: 0
     }
   }
 
@@ -28,7 +30,7 @@ class App extends Component {
     // when user leaves/refreshes the page
     window.addEventListener(
       "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
+    this.saveStateToLocalStorage.bind(this)
     );
   }
 
@@ -42,6 +44,8 @@ class App extends Component {
   }
 
   saveStateToLocalStorage() {
+    this.setState({ showOrderConfirm: false })
+
     for (let key in this.state) {
       localStorage.setItem(key, JSON.stringify(this.state[key]));
     }
@@ -69,14 +73,31 @@ class App extends Component {
 
   handleClick = (dish) => {
     this.setState({
-        cart: this.state.cart.concat(dish)
+        cart: this.state.cart.concat(dish),
+        orderTotal: this.state.orderTotal + dish.price
       });
+      alert("Dish Added!")
   }
 
   removeCartItem = (id) => {
     const cart = [...this.state.cart];
+    const deletedItem = cart.find(cartItem => cartItem.id === id);
     const updatedCart = cart.filter(cartItem => cartItem.id !== id);
-    this.setState({ cart: updatedCart })
+
+    this.setState({
+      cart: updatedCart,
+      orderTotal: this.state.orderTotal - deletedItem.price
+     })
+  }
+
+  checkout = (cart) => {
+    DishService.createOrder(cart).then(order => this.setState({ cart: [] }))
+    alert("Order Submitted!");
+
+    this.setState({
+      showOrderConfirm: true,
+      orderTotal: 0
+    });
   }
 
   render() {
@@ -88,7 +109,7 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Home} />
             <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} handleClick={this.handleClick.bind(this)} /> } />
-            <Route exact path="/order/new" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} /> }  />
+            <Route exact path="/order/new" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} checkout={this.checkout.bind(this)} showOrderConfirm={this.state.showOrderConfirm} orderTotal={this.state.orderTotal}/> }  />
           </div>
         </>
       </Router>
