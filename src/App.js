@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createOrder } from './actions'
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import DishListContainer from './containers/DishListContainer';
 import OrderForm from './containers/OrderForm';
-import DishService from './services/DishService';
+//import DishService from './services/DishService';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
@@ -90,10 +92,12 @@ class App extends Component {
   }
 
   checkout = (cart) => {
-    DishService.createOrder(cart).then(order => this.setState({ cart: [] }))
+    // DishService.createOrder(cart).then(order => this.setState({ cart: [] }))
+    this.props.createOrder(cart);
     alert("Order Submitted!");
 
     this.setState({
+      cart: [],
       showOrderConfirm: true,
       orderTotal: 0
     });
@@ -116,4 +120,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { createOrder })(App);

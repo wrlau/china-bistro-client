@@ -11,19 +11,19 @@ const OrderForm = ({ cart, removeCartItem, checkout, showOrderConfirm, orderTota
   )
 
   return (
-    <div>
-      <h2>Cart Items</h2>
-      {renderCart}
-      <p>Order Total: ${orderTotal}</p>
       <div>
-      {cart.length > 0 &&
-        <button type="submit" onClick={() => checkout(cart)}>Checkout</button>}
-      {showOrderConfirm ?
-        <OrderConfirm /> : null
-      }
+        <h2>Cart Items</h2>
+        {renderCart}
+        <p>Order Total: ${orderTotal}</p>
+        <div>
+        {cart.length > 0 &&
+          <button type="submit" onClick={() => checkout(cart)}>Checkout</button>}
+        {showOrderConfirm ?
+          <OrderConfirm /> : null
+        }
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default OrderForm;
