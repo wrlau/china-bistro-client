@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import DishListContainer from './containers/DishListContainer';
 import OrderForm from './containers/OrderForm';
-import Dishes from './components/Dishes';
 import DishService from './services/DishService';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
@@ -14,7 +14,6 @@ class App extends Component {
     super();
 
     this.state = {
-      dishes: [],
       cart: [],
       showOrderConfirm: false,
       orderTotal: 0
@@ -24,7 +23,7 @@ class App extends Component {
   componentDidMount() {
     this.loadStateWithLocalStorage();
 
-    DishService.fetchDishes().then(dishes => this.setState({ dishes }))
+    // DishService.fetchDishes().then(dishes => this.setState({ dishes }))
 
     // add event listener to save state to localStorage
     // when user leaves/refreshes the page
@@ -108,8 +107,8 @@ class App extends Component {
             <Header />
             <Navbar />
             <Route exact path="/" component={Home} />
-            <Route exact path="/menu" render={() => <Dishes dishes={this.state.dishes} handleClick={this.handleClick.bind(this)} /> } />
-            <Route exact path="/order/new" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} checkout={this.checkout.bind(this)} showOrderConfirm={this.state.showOrderConfirm} orderTotal={this.state.orderTotal}/> }  />
+            <Route exact path="/menu" render={() => <DishListContainer handleClick={this.handleClick.bind(this)}/> } />
+            <Route exact path="/cart" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} checkout={this.checkout.bind(this)} showOrderConfirm={this.state.showOrderConfirm} orderTotal={this.state.orderTotal}/> }  />
           </div>
         </>
       </Router>
