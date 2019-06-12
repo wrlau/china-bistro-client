@@ -3,7 +3,7 @@ import TextDisplay from './TextDisplay';
 
 const TextList = ({ texts }) => {
   return (
-    texts.map(text => <TextDisplay text={text} />)
+    texts.map(text => <TextDisplay text={text} votes={text.votes} />)
   );
 };
 
