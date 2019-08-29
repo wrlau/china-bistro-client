@@ -5,7 +5,7 @@ import Dish from '../components/Dish';
 class DishListContainer extends Component {
 
   render() {
-    const { dishes, handleClick } = this.props;
+    const { dishes, addItem } = this.props;
 
     return(
       <div>
@@ -13,7 +13,7 @@ class DishListContainer extends Component {
         {dishes.map(dish =>
           <>
             <Dish key={dish.id} name={dish.name} price={dish.price} />
-            <button type="submit" onClick={() => handleClick(dish)}>Add to Cart</button>
+            <button type="submit" onClick={() => addItem(dish)}>Add to Cart</button>
           </>
         )}
       </div>
