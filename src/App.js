@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import DishListContainer from './containers/DishListContainer';
+import OrderContainer from './containers/OrderContainer';
 import OrderForm from './containers/OrderForm';
 //import DishService from './services/DishService';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -94,7 +95,7 @@ class App extends Component {
   checkout = (cart) => {
     // DishService.createOrder(cart).then(order => this.setState({ cart: [] }))
     console.log('A');
-    this.props.createOrder(cart); ///***see what cart returns. see what this.props returns. trying passing in event as argument to checkout. try also passing mapdispatchtoprops function to connect instead of object
+    this.props.createOrder(cart);  
     console.log('B');
     alert("Order Submitted!");
 
@@ -114,6 +115,7 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Home} />
             <Route exact path="/menu" render={() => <DishListContainer addItem={this.addItem.bind(this)}/> } />
+            <Route exact path="/order" component={OrderContainer} />
             <Route exact path="/cart" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} checkout={this.checkout.bind(this)} showOrderConfirm={this.state.showOrderConfirm} orderTotal={this.state.orderTotal}/> }  />
           </div>
         </>
@@ -122,10 +124,4 @@ class App extends Component {
   }
 }
 
-/*const mapDispatchToProps = dispatch => {
-  return {
-    createOrder: () => { dispatch(createOrder()) }
-  }
-}
-*/
 export default connect(null, { createOrder })(App);
