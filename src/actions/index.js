@@ -32,3 +32,9 @@ export const createOrder = (cart) => {
     )
   };
 }
+
+export const addItem = (dish) => {
+  return {
+    type: 'ADD_ITEM', dish: dish
+  }
+}

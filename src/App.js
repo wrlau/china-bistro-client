@@ -73,14 +73,6 @@ class App extends Component {
     }
   }
 
-  addItem = (dish) => {
-    this.setState({
-        cart: this.state.cart.concat(dish),
-        orderTotal: this.state.orderTotal + dish.price
-      });
-      alert("Dish Added!")
-  }
-
   removeCartItem = (id) => {
     const cart = [...this.state.cart];
     const deletedItem = cart.find(cartItem => cartItem.id === id);
@@ -95,7 +87,7 @@ class App extends Component {
   checkout = (cart) => {
     // DishService.createOrder(cart).then(order => this.setState({ cart: [] }))
     console.log('A');
-    this.props.createOrder(cart);  
+    this.props.createOrder(cart);
     console.log('B');
     alert("Order Submitted!");
 
@@ -114,7 +106,7 @@ class App extends Component {
             <Header />
             <Navbar />
             <Route exact path="/" component={Home} />
-            <Route exact path="/menu" render={() => <DishListContainer addItem={this.addItem.bind(this)}/> } />
+            <Route exact path="/menu" render={() => <DishListContainer /> } />
             <Route exact path="/order" component={OrderContainer} />
             <Route exact path="/cart" render={() => <OrderForm cart={this.state.cart} removeCartItem={this.removeCartItem.bind(this)} checkout={this.checkout.bind(this)} showOrderConfirm={this.state.showOrderConfirm} orderTotal={this.state.orderTotal}/> }  />
           </div>
